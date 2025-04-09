@@ -12,12 +12,12 @@ import java.util.List;
 public class RiotService {
 	private final RiotClient riotClient;
 
-	public AccountDto getAccountByRiotId(String gameName, String tagLine, String apiKey) {
+	public AccountDto getAccountByRiotId(String gameName, String tagLine) {
 		return riotClient.getAccountByRiotId(gameName, tagLine);
 	}
 
-	public List<String> getMatchIdByPuuid(String puuid, long startTime, long endTime, int queue, String type,
-		int start, int count, String apiKey) {
+	public List<String> getMatchIdByPuuid(String puuid, Long startTime, Long endTime, Integer queue, String type,
+		Integer start, Integer count) {
 		return riotClient.getMatchIdByPuuid(puuid, startTime, endTime, queue, type, start, count);
 	}
 }

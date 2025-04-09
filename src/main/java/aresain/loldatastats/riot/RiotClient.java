@@ -23,7 +23,7 @@ public interface RiotClient {
 		@RequestParam(value = "endTime", required = false) Long endTime,
 		@RequestParam(value = "queue", required = false) Integer queue,
 		@RequestParam(value = "type", required = false) String type,
-		@RequestParam(value = "start", defaultValue = "0") int start,
-		@RequestParam(value = "count", defaultValue = "20") int count
+		@RequestParam(value = "start", defaultValue = "0") Integer start,
+		@RequestParam(value = "count", defaultValue = "20") Integer count
 	);
 }
