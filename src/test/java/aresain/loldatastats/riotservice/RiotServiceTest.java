@@ -4,6 +4,7 @@ import static org.assertj.core.api.Assertions.*;
 
 import aresain.loldatastats.riot.RiotService;
 import aresain.loldatastats.riot.dto.AccountDto;
+import aresain.loldatastats.riot.dto.MatchDto;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -20,7 +21,6 @@ public class RiotServiceTest {
 
 	@Value("${feign.riot.api.key}")
 	String apiKey;
-	String puuid;
 
 	@Test
 	@DisplayName("Riot ID로 계정 정보 가져오기")
@@ -29,7 +29,7 @@ public class RiotServiceTest {
 		String tagLine = "Mk2";
 
 		AccountDto account = riotService.getAccountByRiotId(gameName, tagLine);
-		puuid = account.getPuuid();
+		String puuid = account.getPuuid();
 		System.out.println("Account getPuuid: " + account.getPuuid());
 		System.out.println("Account getGameName: " + account.getGameName());
 		System.out.println("Account getTagLine: " + account.getTagLine());
@@ -42,7 +42,7 @@ public class RiotServiceTest {
 	@Test
 	@DisplayName("PUUID로 매치 ID 가져오기")
 	void testGetMatchIdByPuuid() {
-		puuid = "VaBYPz6sXMJea-dHPC8hnmBLKj7TRnhVo1dFNNB2c_446E3ZXeM2dDqOrwsRK6_CdwcXrVKOctRD0w";
+		String puuid = "VaBYPz6sXMJea-dHPC8hnmBLKj7TRnhVo1dFNNB2c_446E3ZXeM2dDqOrwsRK6_CdwcXrVKOctRD0w";
 		Long startTime = null;
 		Long endTime = null;
 		Integer queue = 420;
@@ -54,6 +54,17 @@ public class RiotServiceTest {
 		System.out.println("Match IDs: " + matchIds);
 
 		assertThat(matchIds).isNotEmpty();
+	}
+
+	@Test
+	@DisplayName("매치 ID로 매치 정보 가져오기")
+	void testGetMatchById() {
+		String matchId = "KR_7571479972";
+
+		MatchDto matchDto = riotService.getMatchById(matchId);
+		System.out.println("MatctDto :" + matchDto);
+
+		assertThat(matchDto).isNotNull();
 	}
 }
 
