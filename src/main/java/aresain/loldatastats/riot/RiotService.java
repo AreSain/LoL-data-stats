@@ -1,6 +1,7 @@
 package aresain.loldatastats.riot;
 
 import aresain.loldatastats.riot.dto.AccountDto;
+import aresain.loldatastats.riot.dto.MatchDto;
 import lombok.RequiredArgsConstructor;
 
 import org.springframework.stereotype.Service;
@@ -19,5 +20,9 @@ public class RiotService {
 	public List<String> getMatchIdByPuuid(String puuid, Long startTime, Long endTime, Integer queue, String type,
 		Integer start, Integer count) {
 		return riotClient.getMatchIdByPuuid(puuid, startTime, endTime, queue, type, start, count);
+	}
+
+	public MatchDto getMatchById(String matchId) {
+		return riotClient.getMatchById(matchId);
 	}
 }

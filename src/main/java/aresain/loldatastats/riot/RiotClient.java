@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import aresain.loldatastats.riot.dto.AccountDto;
+import aresain.loldatastats.riot.dto.MatchDto;
 
 @FeignClient(name = "riotClient", url = "${feign.riot.api.url.asia}", configuration = RiotClientConfig.class)
 public interface RiotClient {
@@ -26,4 +27,10 @@ public interface RiotClient {
 		@RequestParam(value = "start", defaultValue = "0") Integer start,
 		@RequestParam(value = "count", defaultValue = "20") Integer count
 	);
+
+	@GetMapping("/lol/match/v5/matches/{matchId}")
+	MatchDto getMatchById(
+		@PathVariable("matchId") String matchId
+	);
+
 }
