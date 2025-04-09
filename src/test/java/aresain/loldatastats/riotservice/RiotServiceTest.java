@@ -29,7 +29,6 @@ public class RiotServiceTest {
 		String tagLine = "Mk2";
 
 		AccountDto account = riotService.getAccountByRiotId(gameName, tagLine);
-		String puuid = account.getPuuid();
 		System.out.println("Account getPuuid: " + account.getPuuid());
 		System.out.println("Account getGameName: " + account.getGameName());
 		System.out.println("Account getTagLine: " + account.getTagLine());
@@ -62,7 +61,7 @@ public class RiotServiceTest {
 		String matchId = "KR_7571479972";
 
 		MatchDto matchDto = riotService.getMatchById(matchId);
-		System.out.println("MatctDto :" + matchDto);
+		System.out.println("MatchDto :" + matchDto);
 
 		assertThat(matchDto).isNotNull();
 	}
