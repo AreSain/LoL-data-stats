@@ -1,5 +1,7 @@
 package aresain.loldatastats.riot.dto;
 
+import java.util.List;
+
 import lombok.Getter;
 
 @Getter
