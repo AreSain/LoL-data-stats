@@ -1,7 +1,8 @@
 package aresain.loldatastats.riot;
 
 import aresain.loldatastats.riot.dto.AccountDto;
-import aresain.loldatastats.riot.dto.MatchDto;
+import aresain.loldatastats.riot.dto.match.MatchDto;
+import aresain.loldatastats.riot.dto.timeline.TimelineDto;
 import lombok.RequiredArgsConstructor;
 
 import org.springframework.stereotype.Service;
@@ -24,5 +25,9 @@ public class RiotService {
 
 	public MatchDto getMatchById(String matchId) {
 		return riotClient.getMatchById(matchId);
+	}
+
+	public TimelineDto getTimelineByMatchId(String matchId) {
+		return riotClient.getTimelineByMatchId(matchId);
 	}
 }

@@ -6,7 +6,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import aresain.loldatastats.riot.dto.AccountDto;
-import aresain.loldatastats.riot.dto.MatchDto;
+import aresain.loldatastats.riot.dto.match.MatchDto;
+import aresain.loldatastats.riot.dto.timeline.TimelineDto;
 
 @FeignClient(name = "riotClient", url = "${feign.riot.api.url.asia}", configuration = RiotClientConfig.class)
 public interface RiotClient {
@@ -33,4 +34,8 @@ public interface RiotClient {
 		@PathVariable("matchId") String matchId
 	);
 
+	@GetMapping("/lol/match/v5/matches/{matchId}/timeline")
+	TimelineDto getTimelineByMatchId(
+		@PathVariable("matchId") String matchId
+	);
 }
