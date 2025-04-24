@@ -4,7 +4,8 @@ import static org.assertj.core.api.Assertions.*;
 
 import aresain.loldatastats.riot.RiotService;
 import aresain.loldatastats.riot.dto.AccountDto;
-import aresain.loldatastats.riot.dto.MatchDto;
+import aresain.loldatastats.riot.dto.match.MatchDto;
+import aresain.loldatastats.riot.dto.timeline.TimelineDto;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -65,5 +66,16 @@ public class RiotServiceTest {
 
 		assertThat(matchDto).isNotNull();
 	}
-}
 
+	@Test
+	@DisplayName("매치 ID로 타임라인 정보 가져오기")
+	void testGetTimelineByMatchId() {
+		String matchId = "KR_7571479972";
+
+		TimelineDto timelineDto = riotService.getTimelineByMatchId(matchId);
+
+		System.out.println("TimelineDto :" + timelineDto);
+		assertThat(timelineDto).isNotNull();
+		assertThat(timelineDto.getInfo().getFrames()).isNotEmpty();
+	}
+}
