@@ -25,9 +25,9 @@ import lombok.Setter;
 	@Type(name = "ELITE_MONSTER_KILL", value = EliteMonsterKillEventDto.class)
 })
 @Getter
-@Setter
 @JsonIgnoreProperties(ignoreUnknown = true)
 public abstract class EventsTimeLineDto {
-	private long timestamp;
+	private Long timestamp;
+	private Long realTimestamp;
 	private String type;
 }
