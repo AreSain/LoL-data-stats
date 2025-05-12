@@ -1,4 +1,4 @@
-package aresain.loldatastats.common;
+package aresain.loldatastats.common.type;
 
 public enum MonsterType {
 	BARON_NASHOR,

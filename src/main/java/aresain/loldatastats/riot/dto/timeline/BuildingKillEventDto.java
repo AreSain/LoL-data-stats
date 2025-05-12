@@ -1,8 +1,8 @@
 package aresain.loldatastats.riot.dto.timeline;
 
-import aresain.loldatastats.common.BuildingType;
-import aresain.loldatastats.common.LaneType;
-import aresain.loldatastats.common.TowerType;
+import aresain.loldatastats.common.type.BuildingType;
+import aresain.loldatastats.common.type.LaneType;
+import aresain.loldatastats.common.type.TowerType;
 import lombok.Getter;
 
 @Getter
