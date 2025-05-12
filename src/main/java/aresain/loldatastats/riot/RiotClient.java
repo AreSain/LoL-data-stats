@@ -1,10 +1,12 @@
 package aresain.loldatastats.riot;
 
 import java.util.List;
+
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
+
 import aresain.loldatastats.riot.dto.AccountDto;
 import aresain.loldatastats.riot.dto.match.MatchDto;
 import aresain.loldatastats.riot.dto.timeline.TimelineDto;
@@ -13,7 +15,7 @@ import aresain.loldatastats.riot.dto.timeline.TimelineDto;
 public interface RiotClient {
 
 	@GetMapping("/riot/account/v1/accounts/by-riot-id/{gameName}/{tagLine}")
-	AccountDto getAccountByRiotId(
+	AccountDto getAccountByGameNameAndTagLine(
 		@PathVariable("gameName") String gameName,
 		@PathVariable("tagLine") String tagLine
 	);
