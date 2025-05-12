@@ -1,6 +1,6 @@
 package aresain.loldatastats.riot.dto.timeline;
 
-import aresain.loldatastats.common.MonsterType;
+import aresain.loldatastats.common.type.MonsterType;
 import lombok.Getter;
 
 @Getter

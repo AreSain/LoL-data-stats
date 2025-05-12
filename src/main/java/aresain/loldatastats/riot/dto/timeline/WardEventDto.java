@@ -1,6 +1,6 @@
 package aresain.loldatastats.riot.dto.timeline;
 
-import aresain.loldatastats.common.WardType;
+import aresain.loldatastats.common.type.WardType;
 import lombok.Getter;
 
 @Getter
