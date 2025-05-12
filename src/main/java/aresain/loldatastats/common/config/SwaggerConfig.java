@@ -21,10 +21,9 @@ public class SwaggerConfig {
 
 	@Bean
 	public OpenAPI springShopOpenAPI() {
-		Server server = new Server();
 		return new OpenAPI()
-			.info(new Info().title("LOLDataStats API")
-				.version("v1.0"))
-			.addServersItem(server);
+			.info(new Info()
+				.title("LOLDataStats API")
+				.version("v1.0"));
 	}
 }
