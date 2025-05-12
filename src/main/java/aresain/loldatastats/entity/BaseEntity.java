@@ -1,4 +1,4 @@
-package aresain.loldatastats.datastats;
+package aresain.loldatastats.entity;
 
 import java.time.LocalDateTime;
 

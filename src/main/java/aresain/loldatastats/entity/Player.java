@@ -1,4 +1,4 @@
-package aresain.loldatastats.datastats;
+package aresain.loldatastats.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -23,6 +23,14 @@ public class Player extends BaseEntity {
 	public Player(String puuid, String gameName, String tagLine) {
 		this.puuid = puuid;
 		this.gameName = gameName;
+		this.tagLine = tagLine;
+	}
+
+	public void updateGameName(String gameName) {
+		this.gameName = gameName;
+	}
+
+	public void updateTagLine(String tagLine) {
 		this.tagLine = tagLine;
 	}
 }
