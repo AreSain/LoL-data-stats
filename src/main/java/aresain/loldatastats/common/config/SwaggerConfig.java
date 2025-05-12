@@ -14,7 +14,7 @@ public class SwaggerConfig {
 	public GroupedOpenApi RiotDataGroup() {
 		return GroupedOpenApi.builder()
 			.group("Riot API")
-			.pathsToMatch("/riot/**")
+			.pathsToMatch("/player/**")
 			.packagesToScan("aresain.loldatastats")
 			.build();
 	}
