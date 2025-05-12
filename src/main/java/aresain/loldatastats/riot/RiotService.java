@@ -1,5 +1,6 @@
 package aresain.loldatastats.riot;
 
+import aresain.loldatastats.datastats.Player;
 import aresain.loldatastats.riot.dto.AccountDto;
 import aresain.loldatastats.riot.dto.match.MatchDto;
 import aresain.loldatastats.riot.dto.timeline.TimelineDto;
@@ -13,9 +14,15 @@ import java.util.List;
 @RequiredArgsConstructor
 public class RiotService {
 	private final RiotClient riotClient;
+	private final PlayerRepository playerRepository;
 
-	public AccountDto getAccountByRiotId(String gameName, String tagLine) {
-		return riotClient.getAccountByRiotId(gameName, tagLine);
+	public void	createAccount(String gameName, String tagLine) {
+		Player player = playerRepository.findByGameNameAndTagLine(gameName, tagLine).orElseGet(() -> {
+			AccountDto accountDto = riotClient.getAccountByRiotId(gameName, tagLine);
+			Player firstSearchPlayer = new Player(accountDto.getPuuid(), accountDto.getGameName(),
+				accountDto.getTagLine());
+			return playerRepository.save(firstSearchPlayer);
+		});
 	}
 
 	public List<String> getMatchIdByPuuid(String puuid, Long startTime, Long endTime, Integer queue, String type,
