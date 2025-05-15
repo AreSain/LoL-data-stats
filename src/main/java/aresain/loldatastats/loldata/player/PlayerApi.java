@@ -1,5 +1,7 @@
 package aresain.loldatastats.loldata.player;
 
+import org.springframework.http.ResponseEntity;
+
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -29,5 +31,5 @@ public interface PlayerApi {
             )
         }
     )
-    PlayerDto syncPlayer(String gameName, String tagLine);
+    ResponseEntity<PlayerDto> syncPlayer(String gameName, String tagLine);
 } 

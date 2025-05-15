@@ -2,10 +2,7 @@ package aresain.loldatastats.riotservice;
 
 import static org.assertj.core.api.Assertions.*;
 
-import aresain.loldatastats.riot.RiotService;
-import aresain.loldatastats.riot.dto.AccountDto;
-import aresain.loldatastats.riot.dto.match.MatchDto;
-import aresain.loldatastats.riot.dto.timeline.TimelineDto;
+import java.util.List;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -13,7 +10,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import java.util.List;
+import aresain.loldatastats.riot.RiotService;
+import aresain.loldatastats.riot.dto.AccountDto;
+import aresain.loldatastats.riot.dto.match.MatchDto;
+import aresain.loldatastats.riot.dto.timeline.TimelineDto;
 
 @SpringBootTest
 public class RiotServiceTest {
@@ -53,7 +53,7 @@ public class RiotServiceTest {
 		Integer count = 20;
 
 		// when
-		List<String> matchIds = riotService.getMatchIdByPuuid(puuid, startTime, endTime, queue, type, start, count);
+		List<String> matchIds = riotService.getMatchIdListByPuuid(puuid, startTime, endTime, queue, type, start, count);
 
 		// then
 		assertThat(matchIds).isNotEmpty();
