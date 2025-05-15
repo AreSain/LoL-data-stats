@@ -8,4 +8,6 @@ import aresain.loldatastats.loldata.participant.dto.ParticipantSummaryDto;
 @Mapper(componentModel = "spring")
 public interface ParticipantSummaryMapper {
     ParticipantSummaryDto toDto(ParticipantSummary participantSummary);
+
+
 } 

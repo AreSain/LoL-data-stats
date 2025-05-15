@@ -18,7 +18,7 @@ public interface PlayerApi {
             """,
         responses = {
             @ApiResponse(
-                responseCode = "200",
+                responseCode = "201",
                 description = "플레이어 정보 동기화 성공"
             ),
             @ApiResponse(
