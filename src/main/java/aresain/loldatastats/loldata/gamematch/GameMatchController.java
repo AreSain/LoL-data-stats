@@ -17,7 +17,7 @@ import lombok.RequiredArgsConstructor;
 public class GameMatchController {
     private final GameMatchService gameMatchService;
 
-    @PostMapping("/puuid/{puuid}")
+    @PostMapping("/info/{puuid}")
     public ResponseEntity<ListDto<GameMatchInfoDto>> saveOrFindGameInfoList(
         @PathVariable String puuid,
         @RequestParam(required = false) String type,
