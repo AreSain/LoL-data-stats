@@ -29,8 +29,8 @@ public class GameMatchService {
     private final ParticipantService participantService;
 
     @Transactional
-    public ListDto<GameMatchInfoDto> saveOrFindGameInfoList(String puuid, String type) {
-        List<String> matchIds = riotService.getMatchIdListByPuuid(puuid, null, null, null, type, 0, 10);
+    public ListDto<GameMatchInfoDto> saveOrFindGameInfoList(String puuid, String type, Integer start, Integer count) {
+        List<String> matchIds = riotService.getMatchIdListByPuuid(puuid, null, null, null, type, start, count);
         List<GameMatchInfoDto> matchInfoList = matchIds.stream()
             .map(this::saveOrFindGameInfo)
             .collect(Collectors.toList());

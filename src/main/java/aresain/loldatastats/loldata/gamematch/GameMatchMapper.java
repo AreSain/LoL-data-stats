@@ -28,21 +28,7 @@ public interface GameMatchMapper {
     default GameMatchInfoDto toDtoWithRelations(GameMatch gameMatch, List<BanInfoDto> bans,
         List<ObjectiveInfoDto> objectives, List<ParticipantSummaryDto> participants) {
         GameMatchInfoDto dto = toDto(gameMatch);
-        return GameMatchInfoDto.builder()
-            .matchId(dto.getMatchId())
-            .endOfGameResult(dto.getEndOfGameResult())
-            .gameCreation(dto.getGameCreation())
-            .gameStartTimestamp(dto.getGameStartTimestamp())
-            .gameEndTimestamp(dto.getGameEndTimestamp())
-            .gameDuration(dto.getGameDuration())
-            .gameMode(dto.getGameMode())
-            .gameType(dto.getGameType())
-            .mapId(dto.getMapId())
-            .gameVersion(dto.getGameVersion())
-            .winTeamId(dto.getWinTeamId())
-            .bans(bans)
-            .objectives(objectives)
-            .participants(participants)
-            .build();
+        dto.setArgs(bans, objectives, participants);
+        return dto;
     }
 }

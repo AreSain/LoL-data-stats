@@ -30,4 +30,10 @@ public class GameMatchInfoDto {
     private List<BanInfoDto> bans;
     private List<ObjectiveInfoDto> objectives;
     private List<ParticipantSummaryDto> participants;
+
+    public void setArgs(List<BanInfoDto> bans, List<ObjectiveInfoDto> objectives, List<ParticipantSummaryDto> participants) {
+        this.bans = bans;
+        this.objectives = objectives;
+        this.participants = participants;
+    }
 }
