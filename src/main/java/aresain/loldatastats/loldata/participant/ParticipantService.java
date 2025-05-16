@@ -25,16 +25,17 @@ public class ParticipantService {
     private final ParticipantAnalysisRepository participantAnalysisRepository;
     private final ParticipantPerkRepository participantPerkRepository;
     private final ParticipantSummaryMapper participantSummaryMapper;
-    private final ParticipantMapper participantMapper;
+    private final ParticipantAnalysisMapper participantAnalysisMapper;
+    private final ParticipantPerkMapper participantPerkMapper;
 
     @Transactional
     public void saveParticipants(String matchId, List<ParticipantDto> participants) {
         List<ParticipantSummary> summaries = participants.stream()
-            .map(participant -> participantMapper.toSummaryEntity(matchId, participant))
+            .map(participant -> participantSummaryMapper.toEntity(matchId, participant))
             .collect(Collectors.toList());
 
         List<ParticipantAnalysis> analyses = participants.stream()
-            .map(participant -> participantMapper.toAnalysisEntity(matchId, participant))
+            .map(participant -> participantAnalysisMapper.toEntity(matchId, participant))
             .collect(Collectors.toList());
 
         List<ParticipantPerk> perks = participants.stream()
@@ -66,7 +67,7 @@ public class ParticipantService {
     private List<ParticipantPerk> createPerksForStyle(String matchId, Long participantId, PerkStyleDto style, String styleType) {
         return style.getSelections().stream()
             .filter(selection -> selection != null)
-            .map(selection -> participantMapper.toPerkEntity(participantId, matchId, styleType, style, selection))
+            .map(selection -> participantPerkMapper.toEntity(participantId, matchId, styleType, style, selection))
             .collect(Collectors.toList());
     }
 
