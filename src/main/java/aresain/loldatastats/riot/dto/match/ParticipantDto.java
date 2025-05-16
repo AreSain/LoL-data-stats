@@ -69,7 +69,7 @@ public class ParticipantDto {
 	private int objectivesStolen;
 	private int objectivesStolenAssists;
 	private int onMyWayPings;
-	private int participantId;
+	private Long participantId;
 	private int playerScore0;
 	private int playerScore1;
 	private int playerScore2;

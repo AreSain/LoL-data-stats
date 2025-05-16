@@ -18,7 +18,7 @@ public class RiotService {
 		return riotClient.getAccountByGameNameAndTagLine(gameName, tagLine);
 	}
 
-	public List<String> getMatchIdByPuuid(String puuid, Long startTime, Long endTime, Integer queue, String type,
+	public List<String> getMatchIdListByPuuid(String puuid, Long startTime, Long endTime, Integer queue, String type,
 		Integer start, Integer count) {
 		return riotClient.getMatchIdByPuuid(puuid, startTime, endTime, queue, type, start, count);
 	}
