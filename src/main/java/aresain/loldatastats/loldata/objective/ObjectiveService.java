@@ -1,6 +1,5 @@
 package aresain.loldatastats.loldata.objective;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -46,13 +45,7 @@ public class ObjectiveService {
         if (objectiveDto == null) {
             return null;
         }
-        
-        return Objective.builder()
-            .matchId(matchId)
-            .teamId(teamId)
-            .type(type)
-            .kills(objectiveDto.getKills())
-            .build();
+        return objectiveMapper.toEntity(matchId, teamId, type, objectiveDto);
     }
 
     public List<ObjectiveInfoDto> findObjectivesByMatchId(String matchId) {

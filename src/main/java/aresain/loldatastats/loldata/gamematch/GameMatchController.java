@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import aresain.loldatastats.common.dto.ListDto;
+import aresain.loldatastats.loldata.gamematch.dto.GameMatchInfoDto;
 import lombok.RequiredArgsConstructor;
 
 @RestController

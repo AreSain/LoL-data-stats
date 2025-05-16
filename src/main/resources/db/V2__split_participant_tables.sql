@@ -14,7 +14,6 @@ CREATE TABLE `participant_summary` (
     `kills` SMALLINT,
     `deaths` SMALLINT,
     `assists` SMALLINT,
-    `kda` DECIMAL(5,2) GENERATED ALWAYS AS (ROUND((kills + assists) / NULLIF(deaths, 0), 2)) VIRTUAL,
     `total_minions_killed` INT,
     `gold_earned` INT,
     `item0` INT,
@@ -81,4 +80,4 @@ CREATE TABLE `participant_perk` (
     `created_at` DATETIME NOT NULL,
     `modified_at` DATETIME NOT NULL,
     PRIMARY KEY (`participant_id`, `match_id`, `style_type`)
-); 
+);

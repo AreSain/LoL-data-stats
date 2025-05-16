@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import aresain.loldatastats.common.dto.ListDto;
 import aresain.loldatastats.entity.GameMatch;
 import aresain.loldatastats.loldata.ban.BanService;
+import aresain.loldatastats.loldata.gamematch.dto.GameMatchInfoDto;
 import aresain.loldatastats.loldata.objective.ObjectiveService;
 import aresain.loldatastats.loldata.participant.ParticipantService;
 import aresain.loldatastats.riot.RiotService;
@@ -45,23 +46,12 @@ public class GameMatchService {
     }
 
     private GameMatchInfoDto createGameMatchInfoDto(GameMatch gameMatch, String matchId) {
-        GameMatchInfoDto baseDto = gameMatchMapper.toDto(gameMatch);
-        return GameMatchInfoDto.builder()
-            .matchId(baseDto.getMatchId())
-            .endOfGameResult(baseDto.getEndOfGameResult())
-            .gameCreation(baseDto.getGameCreation())
-            .gameStartTimestamp(baseDto.getGameStartTimestamp())
-            .gameEndTimestamp(baseDto.getGameEndTimestamp())
-            .gameDuration(baseDto.getGameDuration())
-            .gameMode(baseDto.getGameMode())
-            .gameType(baseDto.getGameType())
-            .mapId(baseDto.getMapId())
-            .gameVersion(baseDto.getGameVersion())
-            .winTeamId(baseDto.getWinTeamId())
-            .bans(banService.findBansByMatchId(matchId))
-            .objectives(objectiveService.findObjectivesByMatchId(matchId))
-            .participants(participantService.findParticipantsByMatchId(matchId))
-            .build();
+        return gameMatchMapper.toDtoWithRelations(
+            gameMatch,
+            banService.findBansByMatchId(matchId),
+            objectiveService.findObjectivesByMatchId(matchId),
+            participantService.findParticipantsByMatchId(matchId)
+        );
     }
 
     private GameMatch saveMatch(String matchId) {
@@ -77,19 +67,7 @@ public class GameMatchService {
 
     private GameMatch createAndSaveGameMatch(String matchId, InfoDto info, List<TeamDto> teams) {
         int winTeamId = findWinningTeamId(teams);
-        GameMatch gameMatch = GameMatch.builder()
-            .matchId(matchId)
-            .endOfGameResult(info.getEndOfGameResult())
-            .gameCreation(info.getGameCreation())
-            .gameStartTimestamp(info.getGameStartTimestamp())
-            .gameEndTimestamp(info.getGameEndTimestamp())
-            .gameDuration((int) info.getGameDuration())
-            .gameMode(info.getGameMode())
-            .gameType(info.getGameType())
-            .mapId(info.getMapId())
-            .gameVersion(info.getGameVersion())
-            .winTeamId(winTeamId)
-            .build();
+        GameMatch gameMatch = gameMatchMapper.toEntity(info, matchId, winTeamId);
         return gameMatchRepository.save(gameMatch);
     }
 
