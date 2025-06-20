@@ -31,9 +31,11 @@ public class ObjectiveService {
     private Stream<Objective> createObjectivesForTeam(String matchId, TeamDto team) {
         ObjectivesDto objectivesDto = team.getObjectives();
         return Stream.of(
+            createObjective(matchId, team.getTeamId(), "atakhan", objectivesDto.getAtakhan()),
             createObjective(matchId, team.getTeamId(), "baron", objectivesDto.getBaron()),
             createObjective(matchId, team.getTeamId(), "champion", objectivesDto.getChampion()),
             createObjective(matchId, team.getTeamId(), "dragon", objectivesDto.getDragon()),
+            createObjective(matchId, team.getTeamId(), "horde", objectivesDto.getHorde()),
             createObjective(matchId, team.getTeamId(), "inhibitor", objectivesDto.getInhibitor()),
             createObjective(matchId, team.getTeamId(), "riftHerald", objectivesDto.getRiftHerald()),
             createObjective(matchId, team.getTeamId(), "tower", objectivesDto.getTower())
