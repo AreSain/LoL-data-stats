@@ -4,6 +4,7 @@ import lombok.Getter;
 
 @Getter
 public class ObjectivesDto {
+	private ObjectiveDto atakhan;
 	private ObjectiveDto baron;
 	private ObjectiveDto champion;
 	private ObjectiveDto dragon;

@@ -1,4 +1,4 @@
-package aresain.loldatastats.loldata.participant;
+package aresain.loldatastats.loldata.participant.repository;
 
 import java.util.List;
 

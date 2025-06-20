@@ -19,10 +19,10 @@ public class GameMatchController {
 
     @PostMapping("/info/{puuid}")
     public ResponseEntity<ListDto<GameMatchInfoDto>> saveOrFindGameInfoList(
-        @PathVariable String puuid,
-        @RequestParam(required = false) String type,
-        @RequestParam(required = false, defaultValue = "0") Integer start,
-        @RequestParam(required = false, defaultValue = "10") Integer count) {
+        @PathVariable                           String puuid,
+        @RequestParam(defaultValue = "ranked")  String type,
+        @RequestParam(defaultValue = "0")       Integer start,
+        @RequestParam(defaultValue = "10")      Integer count) {
         return ResponseEntity.ok(gameMatchService.saveOrFindGameInfoList(puuid, type, start, count));
     }
-} 
+}

@@ -12,7 +12,6 @@ import lombok.NoArgsConstructor;
 public class ParticipantAnalysisDto {
     private Long participantId;
     private String matchId;
-    private Integer damageDealtToChampions;
     private Integer damageDealtToBuildings;
     private Integer damageDealtToObjectives;
     private Integer damageDealtToTurrets;

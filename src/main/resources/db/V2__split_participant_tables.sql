@@ -50,7 +50,6 @@ CREATE TABLE `participant_summary` (
 CREATE TABLE `participant_analysis` (
     `participant_id` BIGINT NOT NULL,
     `match_id` VARCHAR(20) NOT NULL,
-    `damage_dealt_to_champions` INT, 
     `damage_dealt_to_buildings` INT,
     `damage_dealt_to_objectives` INT,
     `damage_dealt_to_turrets` INT,

@@ -24,9 +24,6 @@ public class ParticipantAnalysis extends BaseEntity {
     @Column(name = "match_id", length = 20)
     private String matchId;
 
-    @Column(name = "damage_dealt_to_champions")
-    private Integer damageDealtToChampions;
-
     @Column(name = "damage_dealt_to_buildings")
     private Integer damageDealtToBuildings;
 
