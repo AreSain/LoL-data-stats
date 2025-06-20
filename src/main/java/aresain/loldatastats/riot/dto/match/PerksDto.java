@@ -6,6 +6,6 @@ import lombok.Getter;
 
 @Getter
 public class PerksDto {
-	private PerkStatsDto perkStats;
+	private PerkStatsDto statPerks;
 	private List<PerkStyleDto> styles;
 }

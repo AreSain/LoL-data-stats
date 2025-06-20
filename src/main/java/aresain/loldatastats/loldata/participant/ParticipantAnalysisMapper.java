@@ -16,9 +16,9 @@ public interface ParticipantAnalysisMapper {
     @Mapping(target = "scuttleCrabKills", source = "participant.challenges.scuttleCrabKills")
     @Mapping(target = "quickSoloKills", source = "participant.challenges.quickSoloKills")
     @Mapping(target = "killsOnLanersEarlyJungle", source = "participant.challenges.killsOnLanersEarlyJungleAsJungler")
-    @Mapping(target = "statPerksDefense", source = "participant.perks.perkStats.defense")
-    @Mapping(target = "statPerksFlex", source = "participant.perks.perkStats.flex")
-    @Mapping(target = "statPerksOffense", source = "participant.perks.perkStats.offense")
+    @Mapping(target = "statPerksDefense", source = "participant.perks.statPerks.defense")
+    @Mapping(target = "statPerksFlex", source = "participant.perks.statPerks.flex")
+    @Mapping(target = "statPerksOffense", source = "participant.perks.statPerks.offense")
     ParticipantAnalysis toEntity(String matchId, ParticipantDto participant);
 
     ParticipantAnalysisDto toDto(ParticipantAnalysis participantAnalysis);
