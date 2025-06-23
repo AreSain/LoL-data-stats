@@ -6,6 +6,6 @@ public enum TowerType {
 	BASE_TURRET,
 	NEXUS_TURRET,
 	AZIR_TURRET,
-	UNDEFINED,
+	INHIBITOR,
 	UNKNOWN
 }

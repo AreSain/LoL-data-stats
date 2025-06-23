@@ -1,14 +1,12 @@
 package aresain.loldatastats.riot.dto.timeline;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
-import com.fasterxml.jackson.annotation.JsonSubTypes.*;
+import com.fasterxml.jackson.annotation.JsonSubTypes.Type;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
-import com.fasterxml.jackson.annotation.JsonTypeInfo.*;
+import com.fasterxml.jackson.annotation.JsonTypeInfo.Id;
 
 import lombok.Getter;
-import lombok.Setter;
 
 @JsonTypeInfo(use = Id.NAME, property = "type", visible = true, defaultImpl = IgnoredEventDto.class)
 @JsonSubTypes({
@@ -16,6 +14,7 @@ import lombok.Setter;
 	@Type(name = "ITEM_PURCHASED", value = ItemEventDto.class),
 	@Type(name = "ITEM_DESTROYED", value = ItemEventDto.class),
 	@Type(name = "ITEM_UNDO", value = ItemEventDto.class),
+	@Type(name = "ITEM_SOLD", value = ItemEventDto.class),
 	@Type(name = "BUILDING_KILL", value = BuildingKillEventDto.class),
 	@Type(name = "TURRET_PLATE_DESTROYED", value = BuildingKillEventDto.class),
 	@Type(name = "WARD_PLACED", value = WardEventDto.class),

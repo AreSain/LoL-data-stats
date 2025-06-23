@@ -1,7 +1,6 @@
 package aresain.loldatastats.loldata.gamematch;
 
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -17,9 +16,9 @@ import lombok.RequiredArgsConstructor;
 public class GameMatchController {
     private final GameMatchService gameMatchService;
 
-    @PostMapping("/info/{puuid}")
+    @PostMapping("/info")
     public ResponseEntity<ListDto<GameMatchInfoDto>> saveOrFindGameInfoList(
-        @PathVariable                           String puuid,
+        @RequestParam                           String puuid,
         @RequestParam(defaultValue = "ranked")  String type,
         @RequestParam(defaultValue = "0")       Integer start,
         @RequestParam(defaultValue = "10")      Integer count) {

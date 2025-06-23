@@ -8,6 +8,7 @@ import lombok.Getter;
 @Getter
 public class BuildingKillEventDto extends EventsTimeLineDto {
 	private BuildingType buildingType;
+	private int bounty;
 	private LaneType laneType;
 	private int killerId;
 	private int teamId;
