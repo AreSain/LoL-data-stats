@@ -87,12 +87,18 @@ public class StatAnalysisService {
 				SummaryAccumulator::accumulate,
 				SummaryAccumulator::combine
 			);
-		double winAvgVision, winAvgWardPlaced, winAvgWardKilled, winAvgDetection;
+		double winAvgKill, winAvgDeath, winAvgAssist, winAvgVision, winAvgWardPlaced, winAvgWardKilled, winAvgDetection;
+		winAvgKill = acc.getWinAvgKill();
+		winAvgDeath = acc.getWinAvgDeath();
+		winAvgAssist = acc.getWinAvgAssist();
 		winAvgVision = acc.getWinAvgVision();
 		winAvgWardPlaced = acc.getWinAvgWardPlaced();
 		winAvgWardKilled = acc.getWinAvgWardKilled();
 		winAvgDetection = acc.getWinAvgDetectionWardPlaced();
-		double loseAvgVision, loseAvgWardPlaced, loseAvgWardKilled, loseAvgDetection;
+		double loseAvgKill, loseAvgDeath, loseAvgAssist, loseAvgVision, loseAvgWardPlaced, loseAvgWardKilled, loseAvgDetection;
+		loseAvgKill = acc.getLoseAvgKill();
+		loseAvgDeath = acc.getLoseAvgDeath();
+		loseAvgAssist = acc.getLoseAvgAssist();
 		loseAvgVision = acc.getLoseAvgVision();
 		loseAvgWardPlaced = acc.getLoseAvgWardPlaced();
 		loseAvgWardKilled = acc.getLoseAvgWardKilled();
@@ -100,7 +106,9 @@ public class StatAnalysisService {
 
 
 		return analysisMapper.toSummaryAnalysisDto(
+			winAvgKill, winAvgDeath, winAvgAssist,
 			winAvgVision, winAvgWardPlaced, winAvgWardKilled, winAvgDetection,
+			loseAvgKill, loseAvgDeath, loseAvgAssist,
 			loseAvgVision, loseAvgWardPlaced, loseAvgWardKilled, loseAvgDetection
 		);
 	}
