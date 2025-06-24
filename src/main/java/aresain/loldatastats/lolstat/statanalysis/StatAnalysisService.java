@@ -80,7 +80,7 @@ public class StatAnalysisService {
 			.flatMap(obj -> summaries.stream()
 				.filter(s -> s.getMatchId().equals(obj.getMatchId()) && s.getTeamId() == obj.getTeamId())
 				.map(ParticipantSummary::getWin)
-				.distinct() // 중복된 win 값이 있을 경우 한 번만
+				.distinct()
 				.map(win -> new AbstractMap.SimpleEntry<>(win, obj))
 			)
 			.collect(Collectors.groupingBy(
