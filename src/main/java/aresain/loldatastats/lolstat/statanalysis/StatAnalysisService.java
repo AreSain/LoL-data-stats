@@ -16,6 +16,7 @@ import aresain.loldatastats.entity.Objective;
 import aresain.loldatastats.entity.ParticipantSummary;
 import aresain.loldatastats.loldata.gamematch.GameMatchService;
 import aresain.loldatastats.loldata.gamematch.dto.GameMatchInfoDto;
+import aresain.loldatastats.lolstat.statanalysis.dto.AnalysisListDto;
 import aresain.loldatastats.lolstat.statanalysis.dto.ObjectiveAnalysisDto;
 import aresain.loldatastats.lolstat.statanalysis.repository.ObjectiveStatRepository;
 import aresain.loldatastats.lolstat.statanalysis.repository.ParticipantSummaryStatRepository;
@@ -30,7 +31,7 @@ public class StatAnalysisService {
 	private final ObjectiveStatRepository objectiveStatRepository;
 	private final ParticipantSummaryStatRepository participantSummaryStatRepository;
 
-	public List<ObjectiveAnalysisDto> getStatAnalysis(String puuid, String type, Integer start, Integer count) {
+	public AnalysisListDto getStatAnalysis(String puuid, String type, Integer start, Integer count) {
 		ListDto<GameMatchInfoDto> gameMatchInfoDtoListDto = gameMatchService.saveOrFindGameInfoList(puuid, type, start, count);
 		List<GameMatchInfoDto> gameMatchInfoList = gameMatchInfoDtoListDto.getItems();
 		List<String> matchIds = gameMatchInfoList.stream()
@@ -40,11 +41,14 @@ public class StatAnalysisService {
 		List<ParticipantSummary> summaries = participantSummaryStatRepository.findByMatchIdInAndPuuid(matchIds, puuid);
 
 
-		Map<Boolean, List<Objective>> objectiveMap = getObjective(summaries, matchIds);
-		return objectiveAnalysis(objectiveMap);
+		List<ObjectiveAnalysisDto> objectiveAnalysisDtos = objectiveAnalysis(summaries, matchIds);
+
+		AnalysisListDto analysisListDto = analysisMapper.toAnalysisListDto(objectiveAnalysisDtos);
+		return analysisListDto;
 	}
 
-	private List<ObjectiveAnalysisDto> objectiveAnalysis(Map<Boolean, List<Objective>> objectiveMap) {
+	private List<ObjectiveAnalysisDto> objectiveAnalysis(List<ParticipantSummary> summaries, List<String> matchIds) {
+		Map<Boolean, List<Objective>> objectiveMap = getObjective(summaries, matchIds);
 		List<Objective> winObjectives = objectiveMap.getOrDefault(true, List.of());
 		List<Objective> loseObjectives = objectiveMap.getOrDefault(false, List.of());
 
