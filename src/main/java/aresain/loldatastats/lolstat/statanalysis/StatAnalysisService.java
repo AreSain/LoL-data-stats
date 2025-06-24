@@ -2,11 +2,11 @@ package aresain.loldatastats.lolstat.statanalysis;
 
 import java.util.AbstractMap;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,8 +16,10 @@ import aresain.loldatastats.entity.Objective;
 import aresain.loldatastats.entity.ParticipantSummary;
 import aresain.loldatastats.loldata.gamematch.GameMatchService;
 import aresain.loldatastats.loldata.gamematch.dto.GameMatchInfoDto;
+import aresain.loldatastats.lolstat.statanalysis.accumulator.SummaryAccumulator;
 import aresain.loldatastats.lolstat.statanalysis.dto.AnalysisListDto;
 import aresain.loldatastats.lolstat.statanalysis.dto.ObjectiveAnalysisDto;
+import aresain.loldatastats.lolstat.statanalysis.dto.SummaryAnalysisDto;
 import aresain.loldatastats.lolstat.statanalysis.repository.ObjectiveStatRepository;
 import aresain.loldatastats.lolstat.statanalysis.repository.ParticipantSummaryStatRepository;
 import lombok.RequiredArgsConstructor;
@@ -42,8 +44,9 @@ public class StatAnalysisService {
 
 
 		List<ObjectiveAnalysisDto> objectiveAnalysisDtos = objectiveAnalysis(summaries, matchIds);
+		SummaryAnalysisDto summaryAnalysisDtos = summaryAnalysis(summaries);
 
-		AnalysisListDto analysisListDto = analysisMapper.toDtoWithRelations(objectiveAnalysisDtos);
+		AnalysisListDto analysisListDto = analysisMapper.toDtoWithRelations(objectiveAnalysisDtos, summaryAnalysisDtos);
 		return analysisListDto;
 	}
 
@@ -77,6 +80,30 @@ public class StatAnalysisService {
 		return result;
 	}
 
+	private SummaryAnalysisDto summaryAnalysis(List<ParticipantSummary> summaries) {
+		SummaryAccumulator acc = summaries.stream()
+			.collect(
+				SummaryAccumulator::new,
+				SummaryAccumulator::accumulate,
+				SummaryAccumulator::combine
+			);
+		double winAvgVision, winAvgWardPlaced, winAvgWardKilled, winAvgDetection;
+		winAvgVision = acc.getWinAvgVision();
+		winAvgWardPlaced = acc.getWinAvgWardPlaced();
+		winAvgWardKilled = acc.getWinAvgWardKilled();
+		winAvgDetection = acc.getWinAvgDetectionWardPlaced();
+		double loseAvgVision, loseAvgWardPlaced, loseAvgWardKilled, loseAvgDetection;
+		loseAvgVision = acc.getLoseAvgVision();
+		loseAvgWardPlaced = acc.getLoseAvgWardPlaced();
+		loseAvgWardKilled = acc.getLoseAvgWardKilled();
+		loseAvgDetection = acc.getLoseAvgDetectionWardPlaced();
+
+
+		return analysisMapper.toSummaryAnalysisDto(
+			winAvgVision, winAvgWardPlaced, winAvgWardKilled, winAvgDetection,
+			loseAvgVision, loseAvgWardPlaced, loseAvgWardKilled, loseAvgDetection
+		);
+	}
 
 	private Map<Boolean, List<Objective>> getObjective(List<ParticipantSummary> summaries, List<String> matchIds) {
 		List<Objective> allObjectives = objectiveStatRepository.findByMatchIdIn(matchIds);

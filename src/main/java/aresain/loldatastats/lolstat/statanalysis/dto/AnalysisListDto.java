@@ -9,4 +9,5 @@ import lombok.Getter;
 @Builder
 public class AnalysisListDto {
 	List<ObjectiveAnalysisDto> objectiveAnalysisDto;
+	SummaryAnalysisDto summaryAnalysisDto;
 }
