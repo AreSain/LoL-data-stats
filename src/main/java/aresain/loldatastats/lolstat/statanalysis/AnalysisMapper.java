@@ -12,10 +12,16 @@ import aresain.loldatastats.lolstat.statanalysis.dto.SummaryAnalysisDto;
 public interface AnalysisMapper {
 	ObjectiveAnalysisDto toObjectiveAnalysisDto(String type, double winAvgKills, double loseAvgKills);
 	SummaryAnalysisDto toSummaryAnalysisDto(
+		Double winAvgKill,
+		Double winAvgDeath,
+		Double winAvgAssist,
 		Double winAvgVisionScore,
 		Double winAvgWardPlaced,
 		Double winAvgWardKilled,
 		Double winAvgDetectionWardPlaced,
+		Double loseAvgKill,
+		Double loseAvgDeath,
+		Double loseAvgAssist,
 		Double loseAvgVisionScore,
 		Double loseAvgWardPlaced,
 		Double loseAvgWardKilled,
