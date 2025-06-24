@@ -43,33 +43,33 @@ public class StatAnalysisService {
 
 		List<ObjectiveAnalysisDto> objectiveAnalysisDtos = objectiveAnalysis(summaries, matchIds);
 
-		AnalysisListDto analysisListDto = analysisMapper.toAnalysisListDto(objectiveAnalysisDtos);
 		AnalysisListDto analysisListDto = analysisMapper.toDtoWithRelations(objectiveAnalysisDtos);
 		return analysisListDto;
 	}
 
 	private List<ObjectiveAnalysisDto> objectiveAnalysis(List<ParticipantSummary> summaries, List<String> matchIds) {
 		Map<Boolean, List<Objective>> objectiveMap = getObjective(summaries, matchIds);
+
 		List<Objective> winObjectives = objectiveMap.getOrDefault(true, List.of());
 		List<Objective> loseObjectives = objectiveMap.getOrDefault(false, List.of());
 
-		Set<String> allTypes = Stream.concat(winObjectives.stream(), loseObjectives.stream())
-			.map(Objective::getType)
-			.collect(Collectors.toSet());
+		Map<String, Double> winAvgKillsByType = winObjectives.stream()
+			.collect(Collectors.groupingBy(
+				Objective::getType,
+				Collectors.averagingDouble(Objective::getKills)
+			));
+		Map<String, Double> loseAvgKillsByType = loseObjectives.stream()
+			.collect(Collectors.groupingBy(
+				Objective::getType,
+				Collectors.averagingDouble(Objective::getKills)
+			));
+
+		Set<String> allTypes = new HashSet<>(winAvgKillsByType.keySet());
 
 		List<ObjectiveAnalysisDto> result = new ArrayList<>();
 		for (String type : allTypes) {
-			double winAvgKills = winObjectives.stream()
-				.filter(o -> o.getType().equals(type))
-				.mapToDouble(Objective::getKills)
-				.average()
-				.orElse(0.0);
-
-			double loseAvgKills = loseObjectives.stream()
-				.filter(o -> o.getType().equals(type))
-				.mapToDouble(Objective::getKills)
-				.average()
-				.orElse(0.0);
+			double winAvgKills = winAvgKillsByType.getOrDefault(type, 0.0);
+			double loseAvgKills = loseAvgKillsByType.getOrDefault(type, 0.0);
 
 			ObjectiveAnalysisDto dto = analysisMapper.toObjectiveAnalysisDto(type, winAvgKills, loseAvgKills);
 			result.add(dto);
@@ -85,7 +85,6 @@ public class StatAnalysisService {
 			.flatMap(obj -> summaries.stream()
 				.filter(s -> s.getMatchId().equals(obj.getMatchId()) && s.getTeamId() == obj.getTeamId())
 				.map(ParticipantSummary::getWin)
-				.distinct()
 				.map(win -> new AbstractMap.SimpleEntry<>(win, obj))
 			)
 			.collect(Collectors.groupingBy(
