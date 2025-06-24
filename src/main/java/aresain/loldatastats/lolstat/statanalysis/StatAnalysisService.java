@@ -44,6 +44,7 @@ public class StatAnalysisService {
 		List<ObjectiveAnalysisDto> objectiveAnalysisDtos = objectiveAnalysis(summaries, matchIds);
 
 		AnalysisListDto analysisListDto = analysisMapper.toAnalysisListDto(objectiveAnalysisDtos);
+		AnalysisListDto analysisListDto = analysisMapper.toDtoWithRelations(objectiveAnalysisDtos);
 		return analysisListDto;
 	}
 

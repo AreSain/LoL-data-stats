@@ -10,5 +10,10 @@ import aresain.loldatastats.lolstat.statanalysis.dto.ObjectiveAnalysisDto;
 @Mapper(componentModel = "spring")
 public interface AnalysisMapper {
 	ObjectiveAnalysisDto toObjectiveAnalysisDto(String type, double winAvgKills, double loseAvgKills);
-	AnalysisListDto toAnalysisListDto(List<ObjectiveAnalysisDto> objectiveAnalysisDtos);
+
+	default AnalysisListDto toDtoWithRelations(List<ObjectiveAnalysisDto> objectiveAnalysisDto) {
+		return AnalysisListDto.builder()
+				.objectiveAnalysisDto(objectiveAnalysisDto)
+				.build();
+	}
 }
