@@ -17,9 +17,12 @@ import aresain.loldatastats.entity.ParticipantSummary;
 import aresain.loldatastats.loldata.gamematch.GameMatchService;
 import aresain.loldatastats.loldata.gamematch.dto.GameMatchInfoDto;
 import aresain.loldatastats.lolstat.statanalysis.accumulator.SummaryAccumulator;
+import aresain.loldatastats.lolstat.statanalysis.dto.AnalysisListDto;
 import aresain.loldatastats.lolstat.statanalysis.dto.match.MatchAnalysisListDto;
 import aresain.loldatastats.lolstat.statanalysis.dto.match.ObjectiveAnalysisDto;
 import aresain.loldatastats.lolstat.statanalysis.dto.match.SummaryAnalysisDto;
+import aresain.loldatastats.lolstat.statanalysis.dto.timeline.LevelUpAnalysisDto;
+import aresain.loldatastats.lolstat.statanalysis.dto.timeline.TimelineAnalysisListDto;
 import aresain.loldatastats.lolstat.statanalysis.repository.ObjectiveStatRepository;
 import aresain.loldatastats.lolstat.statanalysis.repository.ParticipantSummaryStatRepository;
 import lombok.RequiredArgsConstructor;
@@ -29,11 +32,13 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class MatchAnalysisService {
 	private final MatchAnalysisMapper matchAnalysisMapper;
+	private final TimelineAnalysisMapper timelineAnalysisMapper;
 	private final GameMatchService gameMatchService;
+	private final TimelineAnalysisService timelineAnalysisService;
 	private final ObjectiveStatRepository objectiveStatRepository;
 	private final ParticipantSummaryStatRepository participantSummaryStatRepository;
 
-	public MatchAnalysisListDto getStatAnalysis(String puuid, String type, Integer start, Integer count) {
+	public AnalysisListDto getStatAnalysis(String puuid, String type, Integer start, Integer count) {
 		ListDto<GameMatchInfoDto> gameMatchInfoDtoListDto = gameMatchService.saveOrFindGameInfoList(puuid, type, start, count);
 		List<GameMatchInfoDto> gameMatchInfoList = gameMatchInfoDtoListDto.getItems();
 		List<String> matchIds = gameMatchInfoList.stream()
@@ -42,12 +47,17 @@ public class MatchAnalysisService {
 
 		List<ParticipantSummary> summaries = participantSummaryStatRepository.findByMatchIdInAndPuuid(matchIds, puuid);
 
-
 		List<ObjectiveAnalysisDto> objectiveAnalysisDtos = objectiveAnalysis(summaries, matchIds);
 		SummaryAnalysisDto summaryAnalysisDtos = summaryAnalysis(summaries);
+		MatchAnalysisListDto matchAnalysisListDto = matchAnalysisMapper.toDtoWithRelations(
+			objectiveAnalysisDtos,
+			summaryAnalysisDtos
+		);
 
-		MatchAnalysisListDto matchAnalysisListDto = matchAnalysisMapper.toDtoWithRelations(objectiveAnalysisDtos, summaryAnalysisDtos);
-		return matchAnalysisListDto;
+		LevelUpAnalysisDto levelUpAnalysisDto = timelineAnalysisService.getTimelineAnalysis(summaries, matchIds);
+		TimelineAnalysisListDto timelineAnalysisListDto = timelineAnalysisMapper.toTimelineAnalysisListDto(levelUpAnalysisDto);
+		AnalysisListDto analysisListDto = matchAnalysisMapper.toDtoWithRelations(matchAnalysisListDto, timelineAnalysisListDto);
+		return analysisListDto;
 	}
 
 	private List<ObjectiveAnalysisDto> objectiveAnalysis(List<ParticipantSummary> summaries, List<String> matchIds) {
