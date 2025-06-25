@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import aresain.loldatastats.lolstat.statanalysis.dto.match.AnalysisListDto;
+import aresain.loldatastats.lolstat.statanalysis.dto.match.MatchAnalysisListDto;
 import lombok.RequiredArgsConstructor;
 
 @RestController
@@ -17,6 +18,7 @@ public class StatAnalysisController {
 
 	@GetMapping("/info")
 	public ResponseEntity<AnalysisListDto> getPlayerStats(
+	public ResponseEntity<MatchAnalysisListDto> getPlayerStats(
 		@RequestParam String puuid,
 		@RequestParam(defaultValue = "ranked")  String type,
 		@RequestParam(defaultValue = "0")       Integer start,

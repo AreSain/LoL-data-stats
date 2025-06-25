@@ -17,7 +17,7 @@ import aresain.loldatastats.entity.ParticipantSummary;
 import aresain.loldatastats.loldata.gamematch.GameMatchService;
 import aresain.loldatastats.loldata.gamematch.dto.GameMatchInfoDto;
 import aresain.loldatastats.lolstat.statanalysis.accumulator.SummaryAccumulator;
-import aresain.loldatastats.lolstat.statanalysis.dto.match.AnalysisListDto;
+import aresain.loldatastats.lolstat.statanalysis.dto.match.MatchAnalysisListDto;
 import aresain.loldatastats.lolstat.statanalysis.dto.match.ObjectiveAnalysisDto;
 import aresain.loldatastats.lolstat.statanalysis.dto.match.SummaryAnalysisDto;
 import aresain.loldatastats.lolstat.statanalysis.repository.ObjectiveStatRepository;
@@ -33,7 +33,7 @@ public class StatAnalysisService {
 	private final ObjectiveStatRepository objectiveStatRepository;
 	private final ParticipantSummaryStatRepository participantSummaryStatRepository;
 
-	public AnalysisListDto getStatAnalysis(String puuid, String type, Integer start, Integer count) {
+	public MatchAnalysisListDto getStatAnalysis(String puuid, String type, Integer start, Integer count) {
 		ListDto<GameMatchInfoDto> gameMatchInfoDtoListDto = gameMatchService.saveOrFindGameInfoList(puuid, type, start, count);
 		List<GameMatchInfoDto> gameMatchInfoList = gameMatchInfoDtoListDto.getItems();
 		List<String> matchIds = gameMatchInfoList.stream()
@@ -46,8 +46,8 @@ public class StatAnalysisService {
 		List<ObjectiveAnalysisDto> objectiveAnalysisDtos = objectiveAnalysis(summaries, matchIds);
 		SummaryAnalysisDto summaryAnalysisDtos = summaryAnalysis(summaries);
 
-		AnalysisListDto analysisListDto = analysisMapper.toDtoWithRelations(objectiveAnalysisDtos, summaryAnalysisDtos);
-		return analysisListDto;
+		MatchAnalysisListDto matchAnalysisListDto = analysisMapper.toDtoWithRelations(objectiveAnalysisDtos, summaryAnalysisDtos);
+		return matchAnalysisListDto;
 	}
 
 	private List<ObjectiveAnalysisDto> objectiveAnalysis(List<ParticipantSummary> summaries, List<String> matchIds) {

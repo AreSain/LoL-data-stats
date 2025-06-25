@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.mapstruct.Mapper;
 
-import aresain.loldatastats.lolstat.statanalysis.dto.match.AnalysisListDto;
+import aresain.loldatastats.lolstat.statanalysis.dto.match.MatchAnalysisListDto;
 import aresain.loldatastats.lolstat.statanalysis.dto.match.ObjectiveAnalysisDto;
 import aresain.loldatastats.lolstat.statanalysis.dto.match.SummaryAnalysisDto;
 
@@ -27,9 +27,9 @@ public interface AnalysisMapper {
 		Double loseAvgWardKilled,
 		Double loseAvgDetectionWardPlaced);
 
-	default AnalysisListDto toDtoWithRelations(List<ObjectiveAnalysisDto> objectiveAnalysisDto,
+	default MatchAnalysisListDto toDtoWithRelations(List<ObjectiveAnalysisDto> objectiveAnalysisDto,
 			SummaryAnalysisDto summaryAnalysisDto) {
-		return AnalysisListDto.builder()
+		return MatchAnalysisListDto.builder()
 				.objectiveAnalysisDto(objectiveAnalysisDto)
 				.summaryAnalysisDto(summaryAnalysisDto)
 				.build();
