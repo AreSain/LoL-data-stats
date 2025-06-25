@@ -4,9 +4,11 @@ import java.util.List;
 
 import org.mapstruct.Mapper;
 
+import aresain.loldatastats.lolstat.statanalysis.dto.AnalysisListDto;
 import aresain.loldatastats.lolstat.statanalysis.dto.match.MatchAnalysisListDto;
 import aresain.loldatastats.lolstat.statanalysis.dto.match.ObjectiveAnalysisDto;
 import aresain.loldatastats.lolstat.statanalysis.dto.match.SummaryAnalysisDto;
+import aresain.loldatastats.lolstat.statanalysis.dto.timeline.TimelineAnalysisListDto;
 
 @Mapper(componentModel = "spring")
 public interface MatchAnalysisMapper {
@@ -27,11 +29,18 @@ public interface MatchAnalysisMapper {
 		Double loseAvgWardKilled,
 		Double loseAvgDetectionWardPlaced);
 
-	default MatchAnalysisListDto toDtoWithRelations(List<ObjectiveAnalysisDto> objectiveAnalysisDto,
-			SummaryAnalysisDto summaryAnalysisDto) {
+	default MatchAnalysisListDto toDtoWithRelations(
+		List<ObjectiveAnalysisDto> objectiveAnalysisDto,
+		SummaryAnalysisDto summaryAnalysisDto) {
 		return MatchAnalysisListDto.builder()
-				.objectiveAnalysisDto(objectiveAnalysisDto)
-				.summaryAnalysisDto(summaryAnalysisDto)
-				.build();
+			.objectiveAnalysisDto(objectiveAnalysisDto)
+			.summaryAnalysisDto(summaryAnalysisDto)
+			.build();
+	}
+	default AnalysisListDto toDtoWithRelations(MatchAnalysisListDto matchAnalysisListDto, TimelineAnalysisListDto timelineAnalysisListDto) {
+		return AnalysisListDto.builder()
+			.timelineAnalysisListDto(timelineAnalysisListDto)
+			.matchAnalysisListDto(matchAnalysisListDto)
+			.build();
 	}
 }
