@@ -7,7 +7,7 @@ import lombok.Getter;
 
 @Getter
 @Builder
-public class AnalysisListDto {
+public class MatchAnalysisListDto {
 	List<ObjectiveAnalysisDto> objectiveAnalysisDto;
 	SummaryAnalysisDto summaryAnalysisDto;
 }
