@@ -9,7 +9,7 @@ import aresain.loldatastats.lolstat.statanalysis.dto.match.ObjectiveAnalysisDto;
 import aresain.loldatastats.lolstat.statanalysis.dto.match.SummaryAnalysisDto;
 
 @Mapper(componentModel = "spring")
-public interface AnalysisMapper {
+public interface MatchAnalysisMapper {
 	ObjectiveAnalysisDto toObjectiveAnalysisDto(String type, double winAvgKills, double loseAvgKills);
 	SummaryAnalysisDto toSummaryAnalysisDto(
 		Double winAvgKill,

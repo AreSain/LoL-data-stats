@@ -27,8 +27,8 @@ import lombok.RequiredArgsConstructor;
 @Service
 @Transactional
 @RequiredArgsConstructor
-public class StatAnalysisService {
-	private final AnalysisMapper analysisMapper;
+public class MatchAnalysisService {
+	private final MatchAnalysisMapper matchAnalysisMapper;
 	private final GameMatchService gameMatchService;
 	private final ObjectiveStatRepository objectiveStatRepository;
 	private final ParticipantSummaryStatRepository participantSummaryStatRepository;
@@ -46,7 +46,7 @@ public class StatAnalysisService {
 		List<ObjectiveAnalysisDto> objectiveAnalysisDtos = objectiveAnalysis(summaries, matchIds);
 		SummaryAnalysisDto summaryAnalysisDtos = summaryAnalysis(summaries);
 
-		MatchAnalysisListDto matchAnalysisListDto = analysisMapper.toDtoWithRelations(objectiveAnalysisDtos, summaryAnalysisDtos);
+		MatchAnalysisListDto matchAnalysisListDto = matchAnalysisMapper.toDtoWithRelations(objectiveAnalysisDtos, summaryAnalysisDtos);
 		return matchAnalysisListDto;
 	}
 
@@ -74,7 +74,7 @@ public class StatAnalysisService {
 			double winAvgKills = winAvgKillsByType.getOrDefault(type, 0.0);
 			double loseAvgKills = loseAvgKillsByType.getOrDefault(type, 0.0);
 
-			ObjectiveAnalysisDto dto = analysisMapper.toObjectiveAnalysisDto(type, winAvgKills, loseAvgKills);
+			ObjectiveAnalysisDto dto = matchAnalysisMapper.toObjectiveAnalysisDto(type, winAvgKills, loseAvgKills);
 			result.add(dto);
 		}
 		return result;
@@ -105,7 +105,7 @@ public class StatAnalysisService {
 		loseAvgDetection = acc.getLoseAvgDetectionWardPlaced();
 
 
-		return analysisMapper.toSummaryAnalysisDto(
+		return matchAnalysisMapper.toSummaryAnalysisDto(
 			winAvgKill, winAvgDeath, winAvgAssist,
 			winAvgVision, winAvgWardPlaced, winAvgWardKilled, winAvgDetection,
 			loseAvgKill, loseAvgDeath, loseAvgAssist,
