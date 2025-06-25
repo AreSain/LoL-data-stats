@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import aresain.loldatastats.lolstat.statanalysis.dto.AnalysisListDto;
+import aresain.loldatastats.lolstat.statanalysis.dto.match.AnalysisListDto;
 import lombok.RequiredArgsConstructor;
 
 @RestController

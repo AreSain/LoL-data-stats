@@ -1,4 +1,4 @@
-package aresain.loldatastats.lolstat.statanalysis.dto;
+package aresain.loldatastats.lolstat.statanalysis.dto.match;
 
 import java.util.List;
 

@@ -4,9 +4,9 @@ import java.util.List;
 
 import org.mapstruct.Mapper;
 
-import aresain.loldatastats.lolstat.statanalysis.dto.AnalysisListDto;
-import aresain.loldatastats.lolstat.statanalysis.dto.ObjectiveAnalysisDto;
-import aresain.loldatastats.lolstat.statanalysis.dto.SummaryAnalysisDto;
+import aresain.loldatastats.lolstat.statanalysis.dto.match.AnalysisListDto;
+import aresain.loldatastats.lolstat.statanalysis.dto.match.ObjectiveAnalysisDto;
+import aresain.loldatastats.lolstat.statanalysis.dto.match.SummaryAnalysisDto;
 
 @Mapper(componentModel = "spring")
 public interface AnalysisMapper {
