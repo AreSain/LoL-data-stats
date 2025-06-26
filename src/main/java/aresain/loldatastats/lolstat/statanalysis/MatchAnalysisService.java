@@ -21,7 +21,6 @@ import aresain.loldatastats.lolstat.statanalysis.dto.AnalysisListDto;
 import aresain.loldatastats.lolstat.statanalysis.dto.match.MatchAnalysisListDto;
 import aresain.loldatastats.lolstat.statanalysis.dto.match.ObjectiveAnalysisDto;
 import aresain.loldatastats.lolstat.statanalysis.dto.match.SummaryAnalysisDto;
-import aresain.loldatastats.lolstat.statanalysis.dto.timeline.LevelUpAnalysisDto;
 import aresain.loldatastats.lolstat.statanalysis.dto.timeline.TimelineAnalysisListDto;
 import aresain.loldatastats.lolstat.statanalysis.repository.ObjectiveStatRepository;
 import aresain.loldatastats.lolstat.statanalysis.repository.ParticipantSummaryStatRepository;
@@ -54,8 +53,7 @@ public class MatchAnalysisService {
 			summaryAnalysisDtos
 		);
 
-		LevelUpAnalysisDto levelUpAnalysisDto = timelineAnalysisService.getTimelineAnalysis(summaries, matchIds);
-		TimelineAnalysisListDto timelineAnalysisListDto = timelineAnalysisMapper.toTimelineAnalysisListDto(levelUpAnalysisDto);
+		TimelineAnalysisListDto timelineAnalysisListDto = timelineAnalysisService.getTimelineAnalysis(summaries, matchIds);
 		AnalysisListDto analysisListDto = matchAnalysisMapper.toDtoWithRelations(matchAnalysisListDto, timelineAnalysisListDto);
 		return analysisListDto;
 	}
@@ -78,6 +76,7 @@ public class MatchAnalysisService {
 			));
 
 		Set<String> allTypes = new HashSet<>(winAvgKillsByType.keySet());
+		allTypes.addAll(loseAvgKillsByType.keySet());
 
 		List<ObjectiveAnalysisDto> result = new ArrayList<>();
 		for (String type : allTypes) {
